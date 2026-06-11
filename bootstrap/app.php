@@ -5,6 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\Utype;
 use App\Http\Middleware\AuthAdmin;
+use App\Http\Middleware\StaticApiToken;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'utype' => Utype::class,
             'auth.admin' => AuthAdmin::class,
+            'static.api.token' => StaticApiToken::class,
         ]);
 
         // 🔥 FIX: use prepend instead of append

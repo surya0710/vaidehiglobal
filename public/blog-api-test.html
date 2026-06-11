@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog API Test</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        main {
+            max-width: 980px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            padding: 28px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+
+        p {
+            margin: 0 0 20px;
+            color: #6b7280;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            padding: 11px 12px;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        button {
+            border: 0;
+            border-radius: 9px;
+            background: #2563eb;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 700;
+            padding: 12px 18px;
+        }
+
+        button.secondary {
+            background: #475569;
+        }
+
+        button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .hint {
+            margin-top: 6px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .status {
+            margin-top: 20px;
+            border-radius: 10px;
+            padding: 14px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+        }
+
+        .error {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .success {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #166534;
+        }
+
+        @media (max-width: 720px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<main>
+    <section class="card">
+        <h1>Add Blog API Test</h1>
+        <p>
+            This page fetches categories from the current API, sends the selected category slug, and creates a blog with a required featured image.
+        </p>
+
+        <form id="blogForm">
+            <div>
+                <label for="apiBase">API Base URL</label>
+                <input id="apiBase" name="apiBase" value="/api" required>
+                <div class="hint">Change this only if your project runs under a subfolder.</div>
+            </div>
+
+            <div>
+                <label for="token">Static API Token</label>
+                <input id="token" name="token" value="vaidehi-global-api-token" required>
+            </div>
+
+            <div>
+                <label for="categorySlug">Category</label>
+                <select id="categorySlug" name="category_slug" required>
+                    <option value="">Loading categories...</option>
+                </select>
+                <div class="hint">The selected category slug is sent as <strong>category_slug</strong>.</div>
+            </div>
+
+            <div>
+                <label for="featuredImage">Featured Image</label>
+                <input id="featuredImage" name="featured_image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" required>
+                <div class="hint">Required. Allowed: jpg, jpeg, png, webp. Max: 2048 KB.</div>
+            </div>
+
+            <div>
+                <label for="title">Title</label>
+                <input id="title" name="title" value="How to Choose the Right Steel Product" required>
+            </div>
+
+            <div>
+                <label for="slug">Blog Slug</label>
+                <input id="slug" name="slug" value="how-to-choose-the-right-steel-product" required>
+            </div>
+
+            <div>
+                <label for="readTime">Read Time</label>
+                <input id="readTime" name="read_time" type="number" min="1" value="5" required>
+            </div>
+
+            <div>
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="1" selected>Active</option>
+                    <option value="0">Inactive</option>
+                </select>
+            </div>
+
+            <div class="full">
+                <label for="content">Content</label>
+                <textarea id="content" name="content"><p>Choosing the right steel product depends on application, grade, strength, finish, and long-term durability requirements.</p></textarea>
+            </div>
+
+            <div>
+                <label for="metaTitle">Meta Title</label>
+                <input id="metaTitle" name="meta_title" value="How to Choose the Right Steel Product">
+            </div>
+
+            <div>
+                <label for="metaKeywords">Meta Keywords</label>
+                <input id="metaKeywords" name="meta_keywords" value="steel product guide, steel selection, industrial materials">
+            </div>
+
+            <div class="full">
+                <label for="metaDescription">Meta Description</label>
+                <input id="metaDescription" name="meta_description" value="A quick guide to choosing the right steel product for your industrial needs.">
+            </div>
+
+            <div class="full actions">
+                <button id="submitButton" type="submit">Create Blog</button>
+                <button class="secondary" id="reloadCategoriesButton" type="button">Reload Categories</button>
+            </div>
+        </form>
+
+        <pre id="result" class="status">Ready. Select a featured image, then submit the form.</pre>
+    </section>
+</main>
+
+<script>
+    const form = document.getElementById('blogForm');
+    const result = document.getElementById('result');
+    const categorySelect = document.getElementById('categorySlug');
+    const submitButton = document.getElementById('submitButton');
+    const reloadCategoriesButton = document.getElementById('reloadCategoriesButton');
+
+    function apiBase() {
+        return document.getElementById('apiBase').value.replace(/\/$/, '');
+    }
+
+    function token() {
+        return document.getElementById('token').value;
+    }
+
+    function setResult(message, type = '') {
+        result.className = `status ${type}`.trim();
+        result.textContent = message;
+    }
+
+    async function loadCategories() {
+        categorySelect.innerHTML = '<option value="">Loading categories...</option>';
+        submitButton.disabled = true;
+        setResult('Fetching categories from ' + apiBase() + '/blogs ...');
+
+        try {
+            const response = await fetch(apiBase() + '/blogs', {
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+            const payload = await response.json();
+
+            if (!response.ok) {
+                throw new Error(JSON.stringify(payload, null, 2));
+            }
+
+            const categories = Array.isArray(payload.categories) ? payload.categories : [];
+            categorySelect.innerHTML = '';
+
+            if (!categories.length) {
+                categorySelect.innerHTML = '<option value="">No categories found</option>';
+                setResult('No categories found. Create a category first, then reload this page.', 'error');
+                return;
+            }
+
+            categories.forEach((category) => {
+                const option = document.createElement('option');
+                option.value = category.slug;
+                option.textContent = `${category.name} (${category.slug})`;
+                categorySelect.appendChild(option);
+            });
+
+            submitButton.disabled = false;
+            setResult('Categories loaded successfully. Selected category_slug: ' + categorySelect.value, 'success');
+        } catch (error) {
+            categorySelect.innerHTML = '<option value="">Failed to load categories</option>';
+            setResult('Failed to load categories:\n' + error.message, 'error');
+        }
+    }
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const selectedFile = document.getElementById('featuredImage').files[0];
+        if (!selectedFile) {
+            setResult('Please select a featured image before submitting.', 'error');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('category_slug', categorySelect.value);
+        formData.append('title', document.getElementById('title').value);
+        formData.append('slug', document.getElementById('slug').value);
+        formData.append('content', document.getElementById('content').value);
+        formData.append('status', document.getElementById('status').value);
+        formData.append('meta_title', document.getElementById('metaTitle').value);
+        formData.append('meta_keywords', document.getElementById('metaKeywords').value);
+        formData.append('meta_description', document.getElementById('metaDescription').value);
+        formData.append('read_time', document.getElementById('readTime').value);
+        formData.append('featured_image', selectedFile);
+
+        submitButton.disabled = true;
+        setResult('Submitting blog to ' + apiBase() + '/blogs/create ...');
+
+        try {
+            const response = await fetch(apiBase() + '/blogs/create', {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + token(),
+                    Accept: 'application/json'
+                },
+                body: formData
+            });
+            const payload = await response.json();
+            const formattedPayload = JSON.stringify(payload, null, 2);
+
+            if (!response.ok) {
+                throw new Error(formattedPayload);
+            }
+
+            setResult('Blog created successfully:\n' + formattedPayload, 'success');
+        } catch (error) {
+            setResult('Blog create failed:\n' + error.message, 'error');
+        } finally {
+            submitButton.disabled = false;
+        }
+    });
+
+    reloadCategoriesButton.addEventListener('click', loadCategories);
+    loadCategories();
+</script>
+</body>
+</html>
