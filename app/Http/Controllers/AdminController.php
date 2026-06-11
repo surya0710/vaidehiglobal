@@ -291,6 +291,22 @@ class AdminController extends Controller
         return redirect()->route('admin.blogs')->with('success', 'Blog updated successfully');
     }
 
+    public function BlogDelete($id)
+    {
+        $blog = Blog::findOrFail($id);
+
+        if ($blog->image) {
+            $fullPath = public_path('uploads/blogs/' . $blog->image);
+            if (File::exists($fullPath)) {
+                File::delete($fullPath);
+            }
+        }
+
+        $blog->delete();
+
+        return redirect()->route('admin.blogs')->with('status', 'Blog deleted successfully');
+    }
+
     public function hsncode(){
         $hsnList    = Hsn::all();
         return view('admin.hsncode', compact('hsnList'));
