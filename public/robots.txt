@@ -1,0 +1,25 @@
+User-agent: *
+
+# Admin & Authentication
+Disallow: /admin/
+Disallow: /backend/
+Disallow: /wp-admin/
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
+
+# Internal Search Pages
+Disallow: /search/
+Disallow: /*?search=
+Disallow: /*?s=
+
+# API Routes (if any)
+Disallow: /api/
+
+# Development / Testing
+Disallow: /staging/
+Disallow: /test/
+Disallow: /dev/
+
+# Sitemap
+Sitemap: https://vaidehiglobal.com/sitemap.xml
