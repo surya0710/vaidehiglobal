@@ -249,14 +249,17 @@
                 ]
             },
             {
+                "@context": "https://schema.org",
                 "@type": "WebSite",
                 "@id": "https://www.vaidehiglobal.com/#website",
                 "url": "https://www.vaidehiglobal.com/",
                 "name": "Vaidehi Global",
+                "alternateName": "Vaidehi Global | Regional Sourcing & Export Partner",
+                "description": "Vaidehi Global is a trusted India-based sourcing and export partner specializing in premium honey, herbal ingredients, spices, natural products, and customized sourcing solutions for importers, wholesalers, distributors, and private label brands worldwide.",
+                "inLanguage": "en-IN",
                 "publisher": {
                     "@id": "https://www.vaidehiglobal.com/#organization"
-                },
-                "inLanguage": "en"
+                }
             },
             {
                 "@type": "WebPage",
@@ -270,24 +273,11 @@
                     "@id": "https://www.vaidehiglobal.com/#organization"
                 },
                 "description": "Source premium honey, herbal ingredients, spices, natural products, and customized export solutions from India with Vaidehi Global. Trusted sourcing partner for importers, wholesalers, distributors, and private label brands worldwide.",
-                "breadcrumb": {
-                    "@id": "https://www.vaidehiglobal.com/#breadcrumb"
-                },
                 "primaryImageOfPage": {
                     "@type": "ImageObject",
                     "url": "https://www.vaidehiglobal.com/assets/vaidehi-global-logo-213148b0.png"
                 },
                 "inLanguage": "en"
-            },
-            {
-                "@type": "BreadcrumbList",
-                "@id": "https://www.vaidehiglobal.com/#breadcrumb",
-                "itemListElement": [{
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Home",
-                    "item": "https://www.vaidehiglobal.com/"
-                }]
             }
         ]
     }
