@@ -22,7 +22,7 @@
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="canonical" href="https://www.vaidehiglobal.com" />
+    <link rel="canonical" href="{{ request()->url() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Vaidehi Global - Regional Sourcing & Execution Partner across North Indian Production Clusters." />
     <title>Vaidehi Global | Regional Sourcing Partner India</title>
