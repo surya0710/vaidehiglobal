@@ -26,8 +26,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Vaidehi Global - Regional Sourcing & Execution Partner across North Indian Production Clusters." />
     <title>Vaidehi Global | Regional Sourcing Partner India</title>
-    <script type="module" crossorigin src="{{ asset('vite/assets/index-29c91cae.js') }}"></script>
-    <link rel="stylesheet" href="{{  asset('vite/assets/index-5db5be48.css') }}">
+    <script type="module" crossorigin src="{{ asset('vite/assets/index-e4c3caa2.js') }}"></script>
+    <link rel="stylesheet" href="{{  asset('vite/assets/index-4c1243b6.css') }}">
     <script type="module">
     window.onerror = (message, source, lineno, colno, errorObj) => {
         const errorDetails = errorObj ? JSON.stringify({
