@@ -1,21 +1,16 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^test-htaccess$ - [F,L]
 
-    # Force www
+    # Force HTTPS + www in one redirect
+    RewriteCond %{HTTPS} off [OR]
     RewriteCond %{HTTP_HOST} !^www\. [NC]
-    RewriteCond %{HTTP_HOST} ^(.+)$ [NC]
+    RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
     RewriteRule ^ https://www.%1%{REQUEST_URI} [L,R=301]
 
-    # Force HTTPS
-    RewriteCond %{HTTPS} off
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # Let Laravel handle the blog index even if /public/blogs exists for assets.
+    RewriteRule ^blogs/?$ public/index.php [L]
 
-    # Redirect legacy /public URLs to clean URLs
-    RewriteCond %{THE_REQUEST} \s/+public(?:/|[?\s]) [NC]
-    RewriteRule ^public/?(.*)$ /$1 [L,R=301,NE]
-
-    # Internal rewrite to Laravel public directory
+    # Internally route project root traffic to /public
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
