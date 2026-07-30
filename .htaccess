@@ -15,7 +15,15 @@
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # -----------------------------------------------------
-    # 3. Redirect all traffic to /public folder
+    # 3. Canonicalize legacy URLs that expose Laravel's public directory.
+    # THE_REQUEST prevents this rule from redirecting the internal rewrite
+    # below, because the original browser request remains the clean URL.
+    # -----------------------------------------------------
+    RewriteCond %{THE_REQUEST} \s/+public(?:/|[?\s]) [NC]
+    RewriteRule ^public/?(.*)$ /$1 [L,R=301,NE]
+
+    # -----------------------------------------------------
+    # 4. Internally route clean URLs to Laravel's public directory.
     # -----------------------------------------------------
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]

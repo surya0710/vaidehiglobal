@@ -65,8 +65,15 @@ Route::middleware(['auth.admin', 'utype:ADM'])->group(function(){
 |--------------------------------------------------------------------------
 */
 
-// Serve route-specific generated HTML when available, then fall back to the
-// React entry point for dynamic client-side routes such as /blog/{slug}.
+// Blog articles are dynamic client-side routes. All other public marketing
+// pages are pre-rendered below, so unknown paths must remain real 404s.
+Route::get('/blog/{slug}', function () {
+    return response()->file(public_path('index.html'));
+})->where('slug', '[A-Za-z0-9-]+');
+
+// Serve a route-specific generated HTML file when available. Do not use the
+// React entry point as a universal fallback: that returns a 200 homepage for
+// invalid URLs, which can cause search engines to discover and index them.
 Route::get('/{any}', function (string $any) {
     $publicRoot = realpath(public_path());
     $routeIndex = realpath(public_path(trim($any, '/').'/index.html'));
@@ -78,5 +85,5 @@ Route::get('/{any}', function (string $any) {
         return response()->file($routeIndex);
     }
 
-    return response()->file(public_path('index.html'));
+    return response()->file(public_path('404.html'), 404);
 })->where('any', '^(?!admin(?:/|$)|api(?:/|$)).*$');

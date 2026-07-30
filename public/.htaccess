@@ -13,6 +13,11 @@
     RewriteCond %{HTTP:x-xsrf-token} .
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
+    # Canonicalize legacy URLs when this directory is the document root.
+    # This happens before Laravel or the React router can handle the request.
+    RewriteCond %{THE_REQUEST} \s/+public(?:/|[?\s]) [NC]
+    RewriteRule ^public/?(.*)$ /$1 [L,R=301,NE]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$

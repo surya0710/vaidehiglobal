@@ -6,6 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\Utype;
 use App\Http\Middleware\AuthAdmin;
 use App\Http\Middleware\StaticApiToken;
+use App\Http\Middleware\RedirectLegacyPublicPath;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -23,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // 🔥 FIX: use prepend instead of append
         $middleware->prepend(\App\Http\Middleware\CorsMiddleware::class);
+        $middleware->prepend(RedirectLegacyPublicPath::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
