@@ -1,33 +1,22 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # -----------------------------------------------------
-    # 1. Force www (redirect non-www → www)
-    # -----------------------------------------------------
+    # Force www
     RewriteCond %{HTTP_HOST} !^www\. [NC]
     RewriteCond %{HTTP_HOST} ^(.+)$ [NC]
     RewriteRule ^ https://www.%1%{REQUEST_URI} [L,R=301]
 
-    # -----------------------------------------------------
-    # 2. Force HTTPS (redirect http → https)
-    # -----------------------------------------------------
+    # Force HTTPS
     RewriteCond %{HTTPS} off
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    # -----------------------------------------------------
-    # 3. Canonicalize legacy URLs that expose Laravel's public directory.
-    # THE_REQUEST prevents this rule from redirecting the internal rewrite
-    # below, because the original browser request remains the clean URL.
-    # -----------------------------------------------------
+    # Redirect legacy /public URLs to clean URLs
     RewriteCond %{THE_REQUEST} \s/+public(?:/|[?\s]) [NC]
     RewriteRule ^public/?(.*)$ /$1 [L,R=301,NE]
 
-    # -----------------------------------------------------
-    # 4. Internally route clean URLs to Laravel's public directory.
-    # -----------------------------------------------------
+    # Internal rewrite to Laravel public directory
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
-
 </IfModule>
 
 
