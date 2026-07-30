@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteRule ^test-htaccess$ - [F,L]
 
     # Force www
     RewriteCond %{HTTP_HOST} !^www\. [NC]

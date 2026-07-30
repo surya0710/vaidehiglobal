@@ -85,5 +85,9 @@ Route::get('/{any}', function (string $any) {
         return response()->file($routeIndex);
     }
 
-    return response()->file(public_path('404.html'), 404);
+    return response()->make(
+        file_get_contents(public_path('404.html')),
+        404,
+        ['Content-Type' => 'text/html; charset=UTF-8']
+    );
 })->where('any', '^(?!admin(?:/|$)|api(?:/|$)).*$');
