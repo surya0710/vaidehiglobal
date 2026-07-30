@@ -1,0 +1,16 @@
+{
+  "name": "Vaidehi Global",
+  "short_name": "Vaidehi Global",
+  "description": "Global sourcing and export partner from India.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1F3A5F",
+  "icons": [
+    {
+      "src": "/images/vaidehi-global-logo.png",
+      "type": "image/png",
+      "sizes": "any"
+    }
+  ]
+}

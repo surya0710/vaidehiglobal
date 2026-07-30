@@ -18208,7 +18208,7 @@ ul.list-text.type-number {
   position: relative; 
   width: 100%; 
   height: 700px;
-  background: url(http://127.0.0.1:8000/assets/images/banner/banner-video.jpg);
+  background: url(/vite/assets/banner-image.png);
   
 }
 
